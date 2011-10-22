@@ -20,12 +20,34 @@ namespace Rumyantsev.Lab2.Railroad
         }
 
         /// <summary>
-        /// Constructor, that create new collection of stations
+        /// First station
         /// </summary>
-        public Railroad(string name)
+        public Station FirstStation
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Last station
+        /// </summary>
+        public Station LastStation
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Constructor, that create new railroad
+        /// </summary>
+        public Railroad(string name, Station first, Station last)
         {
             stations = new List<Station>();
             Name = name;
+            FirstStation = first;
+            LastStation = last;
+            stations.Add(first);
+            stations.Add(last);
         }
 
         /// <summary>
@@ -50,12 +72,60 @@ namespace Rumyantsev.Lab2.Railroad
         /// Add new station to the railroad
         /// </summary>
         /// <param name="st">Station</param>
-        public void AddStation(Station st)
+        public void AddStation(Station st, int position)
         {
-            if (!(stations.Exists(p => p == st)))
-                stations.Add(st);
+            try
+            {
+                if (position != 1 && position != (stations.Count - 1))
+                    stations.Insert(position - 1, st);
+                else throw new ArgumentException("For adding first or last station use special functions");
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
-        
+
+        /// <summary>
+        /// Change first station
+        /// </summary>
+        /// <param name="st">New first station</param>
+        public void AddFirstStation(Station st)
+        {
+            try
+            {
+                if (st.Track >= 2)
+                {
+                    stations.Insert(0, st);
+                }
+                else throw new Exception("First station must have more then 2 tracks");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Change last station
+        /// </summary>
+        /// <param name="st">New last station</param>
+        public void AddLastStation(Station st)
+        {
+            try
+            {
+                if (st.Track >= 2)
+                {
+                    stations.Add(st);
+                }
+                else throw new Exception("Last station must have more then 2 tracks");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
         /// <summary>
         /// Delete station from railroad
         /// </summary>
