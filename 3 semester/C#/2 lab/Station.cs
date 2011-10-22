@@ -6,11 +6,9 @@ using System.Text;
 
 namespace Rumyantsev.Lab2.Railroad
 {
-    public class Station : IEnumerable<Train>, IDisposable
+    public class Station : IEnumerable<Timetable>, IDisposable
     {
-        private List<Train> trains;
-
-        private Railroad railroads; 
+        private List<Timetable> Timetable;
 
         /// <summary>
         /// Name of station
@@ -31,38 +29,25 @@ namespace Rumyantsev.Lab2.Railroad
         }
 
         /// <summary>
-        /// Count
-        /// </summary>
-        public int Count
-        {
-            get
-            {
-                return trains.Count;
-            }
-        }
-
-        /// <summary>
         /// Constructor with parametrs
         /// </summary>
         /// <param name="r">Railroad, that contain station</param>
         /// <param name="name">Name of station</param>
         /// <param name="tr">Number of tracks</param>
-        public Station(Railroad r, string name, int tr)
+        public Station(string name, int track)
         {
-            railroads = r;
+            Timetable = new List<Timetable>();
             Name = name;
-            Track = tr;
-            trains = new List<Train>();
-            railroads.AddStation(this);
+            Track = track;
         }
 
         /// <summary>
         /// Get enumerator
         /// </summary>
         /// <returns>IEnumerator</returns>
-        public IEnumerator<Train> GetEnumerator()
+        public IEnumerator<Timetable> GetEnumerator()
         {
-            return trains.GetEnumerator();
+            return Timetable.GetEnumerator();
         }
 
         /// <summary>
@@ -75,30 +60,32 @@ namespace Rumyantsev.Lab2.Railroad
         }
 
         /// <summary>
-        /// Add train to the station
+        /// Complementing the station timetable
         /// </summary>
-        /// <param name="t">Train</param>
-        public void AddTrain(Train t)
+        /// <param name="table">Element of timetable</param>
+        public void AddTimetable(Timetable table)
         {
-            try
-            {
-                if (trains.Count + 1 > Track)
-                    throw new Exception("Error: there is no more free tracks in this station");
-                trains.Add(t);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            Timetable.Add(table);
+            Timetable.Sort(delegate(Timetable t1, Timetable t2){return t1.TimeOfArrival.CompareTo(t2.TimeOfArrival);});
         }
 
         /// <summary>
-        /// Delete train from station
+        /// Remove some element from timetable
         /// </summary>
-        /// <param name="tr">Train</param>
-        public void DeleteTrain(Train tr)
+        /// <param name="table">Element, that should be removed</param>
+        public void DeleteTimetable(Timetable table)
         {
-            trains.Remove(tr);
+            Timetable.Remove(table);
+        }
+
+        /// <summary>
+        /// Change element of timetable
+        /// </summary>
+        /// <param name="table">New element</param>
+        /// <param name="position">Position of old element</param>
+        public void ChangeTimetable(Timetable table, int position)
+        {
+            Timetable[position - 1] = table;
         }
 
         /// <summary>
@@ -108,24 +95,13 @@ namespace Rumyantsev.Lab2.Railroad
         public override string ToString()
         {
             string str = "";
-            str += "Name: " + Name + "; Number of tracks: " + Track + '\n';
+            str += "Name: " + Name + "\nNumber of tracks: " + Track + '\n';
 
-            foreach (Train tr in trains)
+            foreach (Timetable tt in Timetable)
             {
-                str += tr.ToString() + '\n';
+                str += tt.ToString() + '\n';
             }
             return str;
-        }
-
-        /// <summary>
-        /// Property, that return average load of paths
-        /// </summary>
-        public double AverageHard
-        {
-            get
-            {
-                return ((double)Count / (double)Track); 
-            }
         }
 
         /// <summary>
@@ -133,9 +109,9 @@ namespace Rumyantsev.Lab2.Railroad
         /// </summary>
         /// <param name="predicate">Predicate</param>
         /// <returns>IEnumerable</returns>
-        public IEnumerable<Train> Filter(Func<Train, bool> predicate)
+        public IEnumerable<Timetable> Filter(Func<Timetable, bool> predicate)
         {
-            return trains.Where(predicate);
+            return Timetable.Where(predicate);
         }
         
         /// <summary>

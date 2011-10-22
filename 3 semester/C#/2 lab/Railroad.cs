@@ -142,6 +142,9 @@ namespace Rumyantsev.Lab2.Railroad
         public override string ToString()
         {
             string str = "";
+            str += "Name: " + Name + "\nFirst station: " + FirstStation.Name + "\nLast station: " + LastStation.Name + '\n';
+            str += "~~~~~~~~~~~~~~~~\nStations:\n\n"; 
+
             foreach (Station st in stations)
             {
                 str += st.ToString() + '\n';

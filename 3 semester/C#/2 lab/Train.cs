@@ -8,9 +8,19 @@ namespace Rumyantsev.Lab2.Railroad
 {
 	public class Train : IDisposable
     {
-        private Station stations;
+        public Station FirstStation
+        {
+            get;
+            private set;
+        }
 
-        private TypeOfTrain type;
+        public Station LastStation
+        {
+            get;
+            private set;
+        }
+
+        private TypeOfTrain Type;
 
         /// <summary>
         /// Identify number of train
@@ -42,12 +52,7 @@ namespace Rumyantsev.Lab2.Railroad
             Hospital = 4
         }
 
-        /// <summary>
-        /// Constructor with parametrs
-        /// </summary>
-        /// <param name="st">The station is located on the train.</param>
-        /// <param name="t">Number of tracks</param>
-        public Train(Station st, int w, int num, int tot)
+        public Train(Station first, Station last, int w, int num, int tot)
         {
             try
             {
@@ -55,11 +60,11 @@ namespace Rumyantsev.Lab2.Railroad
                     throw new Exception("Error: you can`t create train without wagons");
                 if (tot < 0 || tot > 4)
                     throw new ArgumentOutOfRangeException("type of train");
-                stations = st;
+                FirstStation = first;
+                LastStation = last;
                 Wagon = w;
                 Number = num;
-                type = (TypeOfTrain)tot;
-                stations.AddTrain(this);
+                Type = (TypeOfTrain)tot;
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -72,23 +77,12 @@ namespace Rumyantsev.Lab2.Railroad
         }
 
         /// <summary>
-        /// Change station
-        /// </summary>
-        /// <param name="st">The station, which should transfer train.</param>
-        public void ChangeStation(Station st)
-        {
-            this.stations.DeleteTrain(this);
-            stations = st;
-            stations.AddTrain(this);
-        }
-
-        /// <summary>
         /// Convert information about railroad to string format
         /// </summary>
         /// <returns>String format of information about railroad</returns>
         public override string ToString()
         {
-            return "Number of wagons: " + Wagon + "; Train number: " + Number + "; Type of train: " + type;
+            return "Number of wagons: " + Wagon + "; Train number: " + Number + "; Type of train: " + Type;
         }
         
         /// <summary>
