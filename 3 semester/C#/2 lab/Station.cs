@@ -6,9 +6,19 @@ using System.Text;
 
 namespace Rumyantsev.Lab2.Railroad
 {
+    /// <summary>
+    /// A class representing a railway station
+    /// </summary>
     public class Station : IEnumerable<Timetable>, IDisposable
     {
-        private List<Timetable> Timetable;
+        /// <summary>
+        /// Collection of timetable elements
+        /// </summary>
+        public List<Timetable> Timetable
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Name of station
@@ -26,6 +36,17 @@ namespace Rumyantsev.Lab2.Railroad
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Number of timetable`s elements
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return Timetable.Count;
+            }
         }
 
         /// <summary>

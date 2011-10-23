@@ -6,20 +6,32 @@ using System.Text;
 
 namespace Rumyantsev.Lab2.Railroad
 {
+    /// <summary>
+    /// A class representing a train
+    /// </summary>
 	public class Train : IDisposable
     {
-        public Station FirstStation
+        /// <summary>
+        /// First route station
+        /// </summary>
+        public string FirstStation
         {
             get;
             private set;
         }
 
-        public Station LastStation
+        /// <summary>
+        /// Last route station
+        /// </summary>
+        public string LastStation
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Type of train
+        /// </summary>
         private TypeOfTrain Type;
 
         /// <summary>
@@ -52,6 +64,14 @@ namespace Rumyantsev.Lab2.Railroad
             Hospital = 4
         }
 
+        /// <summary>
+        /// Constructor with parametrs
+        /// </summary>
+        /// <param name="first">First route station</param>
+        /// <param name="last">Last route station</param>
+        /// <param name="w">Number of wagons</param>
+        /// <param name="num">Train`s identify number</param>
+        /// <param name="tot">Type of train</param>
         public Train(Station first, Station last, int w, int num, int tot)
         {
             try
@@ -60,8 +80,8 @@ namespace Rumyantsev.Lab2.Railroad
                     throw new Exception("Error: you can`t create train without wagons");
                 if (tot < 0 || tot > 4)
                     throw new ArgumentOutOfRangeException("type of train");
-                FirstStation = first;
-                LastStation = last;
+                FirstStation = first.Name;
+                LastStation = last.Name;
                 Wagon = w;
                 Number = num;
                 Type = (TypeOfTrain)tot;

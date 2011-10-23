@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Rumyantsev.Lab2.Railroad
 {
+    /// <summary>
+    /// Class representing a railway timetable`s element
+    /// </summary>
     public class Timetable
     {
         /// <summary>
@@ -17,23 +20,50 @@ namespace Rumyantsev.Lab2.Railroad
             OnlySunday = 2
         }
 
-        private Station FirstStation;
+        /// <summary>
+        /// First train`s route station
+        /// </summary>
+        public string FirstStation
+        {
+            get;
+            private set;
+        }
 
-        private Station LastStation;
+        /// <summary>
+        /// Last train`s route station
+        /// </summary>
+        public string LastStation
+        {
+            get;
+            private set;
+        }
 
+        /// <summary>
+        /// Time of train`s arrival
+        /// </summary>
         public TimeSpan TimeOfArrival
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Time of train`s departure
+        /// </summary>
         public TimeSpan TimeOfDeparture
         {
             get;
             private set;
         }
 
-        private TypeOfFrequency Type;
+        /// <summary>
+        /// Type of frequency
+        /// </summary>
+        public TypeOfFrequency FreqType
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Constructor with parametrs
@@ -42,17 +72,17 @@ namespace Rumyantsev.Lab2.Railroad
         /// <param name="last">Last station of train`s route</param>
         /// <param name="time">Arrival time</param>
         /// <param name="tof">Type of frequency</param>
-        public Timetable(Train train, TimeSpan time1, TimeSpan time2, int tof)
+        public Timetable(string first, string last, TimeSpan time1, TimeSpan time2, int tof)
         {
             try
             {
                 if (tof < 0 || tof > 1)
                     throw new ArgumentOutOfRangeException("type of farrival");
-                FirstStation = train.FirstStation;
-                LastStation = train.LastStation;
+                FirstStation = first;
+                LastStation = last;
                 TimeOfArrival = time1;
                 TimeOfDeparture = time2;
-                Type = (TypeOfFrequency)tof;
+                FreqType = (TypeOfFrequency)tof;
             }
             catch(ArgumentOutOfRangeException ex)
             {
@@ -67,7 +97,7 @@ namespace Rumyantsev.Lab2.Railroad
         public override string ToString()
         {
             string str = "";
-            str += FirstStation.Name + " - " + LastStation.Name + " | " + TimeOfArrival.ToString() + " - " + TimeOfDeparture.ToString() + " | " + Type;
+            str += FirstStation + " - " + LastStation + " | " + TimeOfArrival.ToString() + " - " + TimeOfDeparture.ToString() + " | " + FreqType;
             return str;
         }
     }

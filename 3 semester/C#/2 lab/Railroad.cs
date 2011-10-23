@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Rumyantsev.Lab2.Railroad
 {
+    /// <summary>
+    /// A class representing a railway line.
+    /// </summary>
     public class Railroad : IEnumerable<Station>, IDisposable
     {
         private List<Station> stations;
@@ -35,6 +38,17 @@ namespace Rumyantsev.Lab2.Railroad
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Number of stations
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return stations.Count;
+            }
         }
 
         /// <summary>
