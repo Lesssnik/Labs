@@ -1,0 +1,26 @@
+﻿@model MvсTester.Models.TestModel
+
+<link rel="stylesheet" href="~/Content/Themes/AddTest.css" type="text/css" />
+@{
+    ViewBag.Title = "Добавление теста";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div id="add_test">
+        <div>
+            Название теста<br />
+            @Html.TextBoxFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div>
+            Описание<br />
+            @Html.TextBoxFor(m => m.Description)
+            @Html.ValidationMessageFor(m => m.Description)
+        </div>
+        <p>
+            <input type="submit" value="Перейти к созданию вопросов" />
+        </p>
+    </div>
+}

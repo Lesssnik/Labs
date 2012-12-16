@@ -1,0 +1,61 @@
+﻿@model MvсTester.Models.RegisterModel
+<link rel="stylesheet" href="~/Content/Themes/Index.css" type="text/css" />
+@{
+    ViewBag.Title = "Регистрация";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function CheckN() {
+            var params = new Object();
+            params.UserName = $("#username").val().trim();
+            $.ajax(
+            {
+                type: "POST",
+                url: "/Account/CheckLogin",
+                data: $.toJSON(params),
+                contentType: "application/json",
+                success: function (response) {
+                    alert(response);
+                }
+            })
+     }
+</script>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <fieldset>
+            <legend>Информация об аккаунте</legend>
+            <p>@Html.ValidationSummary()</p>
+            <table>
+                <tr>
+                    <td><a href="#" onclick="javascript: CheckN();">Проверить занятость имени пользователя</a></td>
+                    <td><span id="check_login"></span></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Имя</td>
+                    <td>@Html.TextBoxFor(m => m.Name, new { id = "username" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.Name)</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>@Html.TextBoxFor(m => m.Email)</td>
+                    <td>@Html.ValidationMessageFor(m => m.Email)</td>
+                </tr>
+                <tr>
+                    <td>Пароль</td>
+                    <td>@Html.PasswordFor(m => m.Password)</td>
+                    <td>@Html.ValidationMessageFor(m => m.Password)</td>
+                </tr>
+            </table>
+            <p>
+                <input type="submit" value="Зарегистрироваться" />
+            </p>
+        </fieldset>
+    </div>
+}
+
+<script type="text/javascript" src="~/Scripts/jQuery.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.json.js"></script>

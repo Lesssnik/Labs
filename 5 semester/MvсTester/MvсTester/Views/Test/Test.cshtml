@@ -1,0 +1,29 @@
+﻿@model MvсTester.Models.Test
+<link rel="stylesheet" href="~/Content/Themes/Index.css" type="text/css" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" />
+<link rel="stylesheet" href="~/Content/Themes/jquery.countdown.css" />
+@{
+    ViewBag.Title = "Прохождение теста";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{int number = 1;}
+@using (Html.BeginForm())
+{
+    <div class="Test">
+        @foreach (var question in Model.Questions)
+        {
+            <p>
+                <h3>№@number @question.Text</h3>
+                @foreach (var answer in question.Answers)
+                {
+                    string str = question.Text.ToString() + "_" + answer.Text.ToString();
+                    @answer.Text @Html.CheckBox(str)<br />
+                }
+            </p>
+                number++;
+        }
+
+        <input type="submit" value="Проверить" />
+    </div>
+}

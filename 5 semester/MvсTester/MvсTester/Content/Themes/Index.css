@@ -1,0 +1,44 @@
+section{
+	width : 700px;
+	margin : 0 auto;
+}
+
+.Test{
+	margin-top : 10px;
+    padding : 10px;
+    padding-bottom : 10px;
+	width : 700px;
+	border-style : groove;
+	border-width : 3px;
+}
+
+.Test h1{
+	margin : 5px;
+	font-size : 23px;
+	font-weight : bold;
+	text-align : center;
+}
+
+.Test div{
+	padding : 10px;
+}
+
+.descr{
+	text-align : center;
+	font-size : 15px;
+}
+
+.Test span{
+	font-style : italic;
+	margin-bottom : 10px;
+}
+
+.author
+{
+    font-style : italic;
+}
+
+.time
+{
+    font-style : italic;
+}

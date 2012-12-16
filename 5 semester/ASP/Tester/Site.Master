@@ -1,0 +1,34 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PresentationLayer.SiteMaster" %>
+<%@ Register TagPrefix="my" TagName="UC" Src="~/LoginDisplayControl.ascx" %>
+
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <!--[if IE]>  
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>  
+	<![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="Default.css" type="text/css" />
+    <title>Tester - система тестирования знаний</title>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server">
+    <header>
+            <div class="logo">
+                <a href="../Default.aspx"><img src="../Images/logo.png" id="logo" alt="Logo"/></a>
+            </div>
+            <my:UC runat="server" />
+    </header>
+    
+    <section>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+    </section>
+    <div class="clear"></div>
+    
+    <footer>
+    </footer>
+    </form>
+</body>
+</html>

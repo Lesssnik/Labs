@@ -1,0 +1,45 @@
+﻿@model Tuple<MvсTester.Models.Statistic, MvсTester.Models.Test>
+<link rel="stylesheet" href="~/Content/Themes/Index.css" type="text/css" />
+@{
+    ViewBag.Title = "Результат прохождения теста";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+@if (Model != null)
+{
+    <center><table border="1">
+    @foreach (var q in Model.Item2.Questions)
+    {
+        bool b = false;
+        <tr>
+            <td width="200px"> 
+                @q.Text
+            </td>
+            <td width="200px">
+                @foreach (var s in Model.Item1.CorrectQuestions)
+                {
+                    if (s.Correct.CompareTo(q.Text) == 0)
+                    {
+                        b = true;
+                    }
+                }
+                @if (b == true)
+                {
+                    <i>Верно</i>
+                }
+                else 
+                {
+                    <i>Неверно</i>
+                }
+            </td>
+        </tr>
+    }
+    </table></center>
+}
+else 
+{
+    <p>
+        <center>Такой статистики не существует</center>
+    </p>
+}
+<p><center>@Html.ActionLink("На главную", "Index", "Home")</center></p>

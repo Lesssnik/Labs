@@ -1,0 +1,115 @@
+﻿<link rel="stylesheet" href="~/Content/Themes/AddTest.css" type="text/css" />
+@{
+    ViewBag.Title = "Редактирование теста";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="~/Scripts/jQuery.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.json.js"></script>
+<script type="text/javascript">
+    function GetQ() {
+        var params = new Object();
+        params.TestId = $("#testId").val().trim().replace('{ id = ', '').replace(' }', '');
+        params.Question = $("select option:selected").val();
+        $.ajax(
+        {
+            type: "POST",
+            url: "/Test/GetQuestion",
+            data: $.toJSON(params),
+            contentType: "application/json",
+            success: function (response) {
+                $("#Question1").val('');
+                $("#Question2").val('');
+                $("#Question3").val('');
+                $("#Question4").val('');
+                $("#Question5").val('');
+                $("#Question6").val('');
+                $("#Question1Check").removeAttr('checked');
+                $("#Question2Check").removeAttr('checked');
+                $("#Question3Check").removeAttr('checked');
+                $("#Question4Check").removeAttr('checked');
+                $("#Question5Check").removeAttr('checked');
+                $("#Question6Check").removeAttr('checked');
+                var res = jQuery.parseJSON(response);
+                $("#Name").val(res.Text);
+                if (res.Answers[0] != undefined) {
+                    $("#Question1").val(res.Answers[0].Text);
+                    if (res.Answers[0].IsTrue == true) {
+                        $("#Question1Check").prop('checked', 'checked');
+                    }
+                }
+                if (res.Answers[1] != undefined) {
+                    $("#Question2").val(res.Answers[1].Text);
+                    if (res.Answers[1].IsTrue == true) {
+                        $("#Question2Check").prop('checked', 'checked');
+                    }
+                }
+                if (res.Answers[2] != undefined) {
+                    $("#Question3").val(res.Answers[2].Text);
+                    if (res.Answers[2].IsTrue == true) {
+                        $("#Question3Check").prop('checked', 'checked');
+                    }
+                }
+                if (res.Answers[3] != undefined) {
+                    $("#Question4").val(res.Answers[3].Text);
+                    if (res.Answers[3].IsTrue == true) {
+                        $("#Question4Check").prop('checked', 'checked');
+                    }
+                }
+                if (res.Answers[4] != undefined) {
+                    $("#Question5").val(res.Answers[4].Text);
+                    if (res.Answers[4].IsTrue == true) {
+                        $("#Question5Check").prop('checked', 'checked');
+                    }
+                }
+                if (res.Answers[5] != undefined) {
+                    $("#Question6").val(res.Answers[5].Text);
+                    if (res.Answers[5].IsTrue == true) {
+                        $("#Question6Check").prop('checked', 'checked');
+                    }
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () { GetQ(); });
+</script>
+
+
+@Html.Hidden("testId", new { id = ViewBag.Id })
+
+@using (Html.BeginForm())
+{
+    <div id="add_test">
+        @Html.DropDownList("Questions", (SelectList)ViewBag.Questions, new { onchange = "javascript: GetQ();" })
+        <div>
+            Название вопроса<br />
+            @Html.TextBox("Name")
+        </div>
+        <div>
+            1 ответ<br />
+            @Html.TextBox("Question1")
+            @Html.CheckBox("Question1Check")<br />
+            2 ответ<br />
+            @Html.TextBox("Question2")
+            @Html.CheckBox("Question2Check")<br />
+            3 ответ<br />
+            @Html.TextBox("Question3")
+            @Html.CheckBox("Question3Check")<br />
+            4 ответ<br />
+            @Html.TextBox("Question4")
+            @Html.CheckBox("Question4Check")<br />
+            5 ответ<br />
+            @Html.TextBox("Question5")
+            @Html.CheckBox("Question5Check")<br />
+            6 ответ<br />
+            @Html.TextBox("Question6")
+            @Html.CheckBox("Question6Check")<br />
+        </div>
+        <p>
+            <input type="submit" id="add" value="Добавить вопрос" />
+        </p>
+        <p>
+            @Html.ActionLink("Завершить редактирование теста", "EndCreatingTest")
+        </p>
+    </div>
+}

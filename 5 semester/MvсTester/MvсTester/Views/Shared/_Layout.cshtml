@@ -1,0 +1,47 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <!--[if IE]>  
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>  
+	<![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Content/Themes/Default.css" type="text/css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/"><img src="~/Content/Images/Logo.png" id="Logo" alt="Logo"/></a>
+        </div>
+        <div class="loginDisplay">
+            @Html.ActionLink("Найти тест", "Search", "Test")<br />
+            @if (Session["UserLogin"] != null)
+            {
+                @Html.ActionLink("Добавить тест", "AddTest", "Test")<br />
+                if (Session["UserLogin"].ToString().CompareTo("Admin") == 0)
+                {
+                    @Html.ActionLink(Session["UserLogin"].ToString(), "Index", "Admin")<br />
+                }
+                else
+                {
+                    @Html.ActionLink(Session["UserLogin"].ToString(), "User", "User")<br />
+                }
+                @Html.ActionLink("Выйти", "Exit", "Account")<br />
+            }
+            else
+            {
+                @Html.ActionLink("Войти", "LogOn", "Account")<br />
+                @Html.ActionLink("Зарегистрироваться", "Register", "Account")<br />
+            }
+        </div>
+    </header>
+    
+    <section>
+        @RenderBody()
+    </section>
+    
+    <footer>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+﻿@model MvсTester.Models.User
+<link rel="stylesheet" href="~/Content/Themes/User.css" type="text/css" />
+@{
+    ViewBag.Title = "Страница пользователя";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    <h1>@Model.Login</h1>
+    <h2>@Model.Name @Model.Surname</h2>
+    <h3>@Model.City</h3>
+
+    if (Session["UserLogin"] != null && Session["UserLogin"].ToString().CompareTo(Model.Login) == 0)
+    {
+    
+        @Html.ActionLink("Моя статистика", "MyStatistic")<br />
+        @Html.ActionLink("Мои тесты", "MyTests")<br />
+        @Html.ActionLink("Редактировать данные", "EditUser")
+    }
+}
+else 
+{
+    <p>
+        <center>Пользователь не найден</center>
+    </p>
+}

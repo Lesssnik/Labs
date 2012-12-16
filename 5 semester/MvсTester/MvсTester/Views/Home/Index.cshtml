@@ -1,0 +1,61 @@
+﻿@model List<MvсTester.Models.Test>
+<link rel="stylesheet" href="~/Content/Themes/Index.css" type="text/css" />
+@{
+    ViewBag.Title = "Главная";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null && Model.Count != 0)
+{
+    foreach (var test in Model)
+    {
+    <div class="Test">
+        <table>
+            <tr>
+                <td width="100px"></td>
+                <td width="500px">
+                    <center><h1>@test.Name</h1></center>
+                </td>
+                <td width="100px"></td>
+            </tr>
+        </table>
+        <div class="descr">
+            @test.Description
+        </div>
+        <table width="700px">
+            <tr>
+                <td width="310px" class="author">
+                    @Html.ActionLink("Автор: " + @test.Author, "User", "User", new { user = test.Author }, null)
+                </td>
+                <td width="190px">
+                    @Html.ActionLink("Пройти тест", "Test", "Test", new { testId = test.Id }, null)
+                </td>
+                <td width="200px">
+                    @if (Session["UserLogin"] != null)
+                    {
+                        if (test.Author.CompareTo(Session["UserLogin"].ToString()) == 0)
+                        {
+                            @Html.ActionLink("Редактировать", "EditTest", "Test", new { Id = test.Id }, null)
+                        }
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+    }
+}
+else
+{
+    <p>
+        <center>Тестов не найдено</center>
+    </p>
+}
+
+<p>
+    <center>
+        @for (int i = 1; i <= (int)ViewBag.Pages; i++)
+        {
+            @Html.ActionLink(i.ToString(), "Index", new { page = i });
+        }
+    </center>
+</p>

@@ -1,0 +1,51 @@
+﻿@model List<MvсTester.Models.Statistic>
+<link rel="stylesheet" href="~/Content/Themes/Index.css" type="text/css" />
+@{
+    ViewBag.Title = "Моя статистика";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Count != 0)
+{
+    foreach (var stat in Model)
+    {
+        <center><table border="1">
+        @{
+            bool b = false;
+            var tst = new MvсTester.Models.TesterEntities().Tests.Where(t => t.Name.CompareTo(stat.TestName) == 0).First(); 
+        }
+        @foreach (var q in tst.Questions)
+        {
+            <tr>
+                <td width="200px"> 
+                    @q.Text
+                </td>
+                <td width="200px">
+                    @foreach (var s in stat.CorrectQuestions)
+                    {
+                        if (s.Correct.CompareTo(q.Text) == 0)
+                        {
+                            b = true;
+                        }
+                    }
+                    @if (b == true)
+                    {
+                        <i>Верно</i>
+                    }
+                    else
+                    {
+                        <i>Неверно</i>
+                    }
+                </td>
+            </tr>
+        }
+        </table></center>
+        <br />
+    }
+}
+else
+{
+   <p>
+        <center>Вы не прошли еще ни одного теста</center>
+    </p>
+}

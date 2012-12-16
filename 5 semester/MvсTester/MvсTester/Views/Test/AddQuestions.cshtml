@@ -1,0 +1,65 @@
+﻿@model MvсTester.Models.QuestionsModel
+
+<link rel="stylesheet" href="~/Content/Themes/AddTest.css" type="text/css" />
+@{
+    ViewBag.Title = "Добавление теста";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="~/Scripts/jQuery.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.json.js"></script>
+<script type="text/javascript">
+    function UpdateFields() {
+        $("#Name").val('');
+        $("#Question1").val('');
+        $("#Question2").val('');
+        $("#Question3").val('');
+        $("#Question4").val('');
+        $("#Question5").val('');
+        $("#Question6").val('');
+        $("#Question1Check").removeAttr('checked');
+        $("#Question2Check").removeAttr('checked');
+        $("#Question3Check").removeAttr('checked');
+        $("#Question4Check").removeAttr('checked');
+        $("#Question5Check").removeAttr('checked');
+        $("#Question6Check").removeAttr('checked');
+    };
+</script>
+
+@using (Html.BeginForm())
+{
+    <div id="add_test">
+        <p>
+            <a href="#" onclick="javascript: UpdateFields();">Очистить поля</a>
+        </p>
+        <div>
+            Название вопроса<br />
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+        <div>
+            1 ответ<br />
+            @Html.TextBoxFor(m => m.Question1)
+            @Html.CheckBoxFor(m => m.Question1Check)<br />
+            2 ответ<br />
+            @Html.TextBoxFor(m => m.Question2)
+            @Html.CheckBoxFor(m => m.Question2Check)<br />
+            3 ответ<br />
+            @Html.TextBoxFor(m => m.Question3)
+            @Html.CheckBoxFor(m => m.Question3Check)<br />
+            4 ответ<br />
+            @Html.TextBoxFor(m => m.Question4)
+            @Html.CheckBoxFor(m => m.Question4Check)<br />
+            5 ответ<br />
+            @Html.TextBoxFor(m => m.Question5)
+            @Html.CheckBoxFor(m => m.Question5Check)<br />
+            6 ответ<br />
+            @Html.TextBoxFor(m => m.Question6)
+            @Html.CheckBoxFor(m => m.Question6Check)<br />
+        </div>
+        <p>
+            <input type="submit" value="Добавить вопрос" />
+        </p>
+        <p>
+            @Html.ActionLink("Завершить создание теста", "Index", "Home")
+        </p>
+    </div>
+}

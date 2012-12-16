@@ -1,0 +1,51 @@
+﻿@model MvсTester.Models.EditUserModel
+<link rel="stylesheet" href="~/Content/Themes/User.css" type="text/css" />
+@{
+    ViewBag.Title = "Редактирование данных о пользователе";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div>
+        <fieldset>
+            <legend>Информация об аккаунте</legend>
+
+            <div>
+                Имя
+                @Html.TextBoxFor(m => m.Name)
+            </div>
+
+            <div>
+                Фамилия
+                @Html.TextBoxFor(m => m.Surname)
+            </div>
+
+            <div>
+                Email
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+
+            <div>
+                Город
+                @Html.TextBoxFor(m => m.City)
+            </div>
+
+            <div>
+                Старый пароль
+                @Html.PasswordFor(m => m.OldPassword)
+            </div>
+
+            <div>
+                Новый пароль
+                @Html.PasswordFor(m => m.NewPassword)
+            </div>
+
+            <p>
+                <input type="submit" value="Сохранить изменения" />
+            </p>
+        </fieldset>
+    </div>
+}
+

@@ -1,0 +1,32 @@
+﻿@model MvсTester.Models.LogOnModel
+<link rel="stylesheet" href="~/Content/Themes/Index.css" type="text/css" />
+@{
+    ViewBag.Title = "Вход в аккаунт";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div>
+        <fieldset>
+            <legend>Информация об аккаунте</legend>
+            <p>@Html.ValidationSummary()</p>
+            <table>
+                <tr>
+                    <td>Имя</td>
+                    <td>@Html.TextBoxFor(m => m.Name)</td>
+                    <td>@Html.ValidationMessageFor(m => m.Name)</td>
+                </tr>
+                <tr>
+                    <td>Пароль</td>
+                    <td>@Html.PasswordFor(m => m.Password)</td>
+                    <td>@Html.ValidationMessageFor(m => m.Password)</td>
+                </tr>
+            </table>
+            <p>
+                <input type="submit" value="Войти" />
+            </p>
+        </fieldset>
+    </div>
+}
+

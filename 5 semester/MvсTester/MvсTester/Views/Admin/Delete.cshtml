@@ -1,0 +1,38 @@
+﻿@model MvсTester.Models.Test
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Вы уверены, что хотите удалить этот тест?</h3>
+<fieldset>
+    <legend>Тест</legend>
+
+    <div class="display-label">
+         <u>@Html.DisplayNameFor(model => model.Name)</u>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         <u>@Html.DisplayNameFor(model => model.Description)</u>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         <u>@Html.DisplayNameFor(model => model.Author)</u>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Author)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Вернуться к списку тестов", "Index")
+    </p>
+}
